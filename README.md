@@ -67,8 +67,7 @@ Karena empat path lain di grup finpro mendesain untuk konteks Jabodetabek, koord
 
 Arah relatif dipertahankan (titik paling utara/timur di Chicago tetap paling utara/timur di Jabodetabek), sehingga pola spasial (hotspot, klaster) tetap konsisten posisi relatifnya — hanya "berpindah label" geografis. Koordinat asli disimpan di `Latitude\_Chicago\_orig`/`Longitude\_Chicago\_orig` untuk ketertelusuran/audit, dan hasil transformasi divalidasi dengan assertion (`between(lat\_new\_min, lat\_new\_max)`) serta visual scatter before/after.
 
-> \*\*Catatan etis (sesuai arahan FAQ Final Project):\*\* dataset Chicago Crimes untuk saat ini hanya dipakai untuk membuktikan model secara metodologis, \*\*bukan\*\* representasi akurat kondisi Jabodetabek. Framing ini perlu ditegaskan ulang di laporan akhir \& saat presentasi supaya audiens tidak salah paham bahwa risk score ini menggambarkan kondisi riil Indonesia.
-
+> Catatan etis (sesuai arahan FAQ Final Project): dataset Chicago Crimes untuk saat ini hanya dipakai untuk membuktikan model secara metodologis, bukan representasi akurat kondisi Jabodetabek. 
 
 
 ##### 2.4 Feature Engineering
@@ -81,12 +80,9 @@ Arah relatif dipertahankan (titik paling utara/timur di Chicago tetap paling uta
 * Resolusi ini dipilih (setelah proses debugging) karena resolusi lebih halus (3 desimal, \~110 m) menghasilkan kepadatan sel yang berlebihan relatif terhadap radius pencarian tetangga (rata-rata tetangga meledak ke ribuan), sehingga smoothing spasial menyebar ke area yang sebenarnya tidak relevan.
 
 
-
 ##### 2.5 Pseudo-Labeling → Risk Score
 
-Karena dataset tidak menyediakan Risk Score secara langsung, target dibentuk lewat 4 tahap:
-
-
+Karena dataset tidak menyediakan Risk Score secara langsung, target dibentuk lewat 5 tahap:
 
 **a) Severity Scoring (fallback 3-tier).** Setiap kejadian diberi skor keparahan 0–100 berdasarkan kombinasi `(Primary Type, Description)`, dengan urutan mengikuti *Hierarchy Rule* FBI UCR (nyawa > kekerasan fisik > kerugian materi):
 
@@ -98,27 +94,17 @@ Karena dataset tidak menyediakan Risk Score secara langsung, target dibentuk lew
 
 Tier 3 yang kecil (0,4%) mengonfirmasi tabel severity manual sudah cukup representatif untuk sebagian besar data.
 
-
-
 **b) Temporal Decay (Recency).** `w\_time = exp(-λ · usia\_hari)`, exponential decay dengan **half-life 180 hari** — kejadian setahun lalu masih menyumbang \~25% bobot penuhnya (cukup untuk menangkap pola musiman tahunan), tapi kejadian yang jauh lebih lama meluruh signifikan. Rata-rata `w\_time` di seluruh data: 0,285 (usia rata-rata kejadian: 428 hari).
 
 `event\_value = severity × w\_time` menjadi kontribusi tiap kejadian individual.
 
-
-
 **c) Unit Analisis.** Kejadian diagregasi ke level **(sel grid × hari × jam)** — unit ini yang menjawab langsung definisi "risiko suatu lokasi pada waktu tertentu". `base\_value` = jumlah `event\_value` per unit, `crime\_count` = frekuensi kejadian, `arrest\_rate` = rata-rata status penangkapan. **Total 119.454 baris unit** dari 550.896 kejadian individual.
 
-
-
 **d) Spatial Decay (Proximity).** `w\_dist = exp(-d²/2σ²)` dengan `σ (SIGMA\_METERS) = 1.500 m`, dihitung dari jarak geografis sesungguhnya (haversine, via `BallTree`) — bukan sekadar "grid tetangga 3×3". Setiap sel menyerap pengaruh sel-sel tetangganya dalam radius pencarian `3σ = 4.500 m`, berbobot jarak. **Rata-rata jumlah tetangga per sel: 40,4** (angka yang sudah divalidasi wajar setelah proses debugging bersama, dibandingkan dengan percobaan awal `SIGMA\_METERS=500` yang hanya menghasilkan \~8 tetangga, dan grid 3-desimal yang sempat menghasilkan ribuan tetangga tidak wajar).
-
-
 
 **e) Normalisasi 0–100.** `risk\_raw` (hasil smoothing) di-transform dengan `log1p` sebelum di-min-max scale ke 0–100 — lebih tahan terhadap outlier dibanding min-max langsung, karena beberapa sel dengan nilai ekstrem tidak lagi menekan seluruh sel lain ke rentang sempit.
 
 **Hasil akhir `risk\_score`:** mean 60,08, std 13,40, rentang 0–100 — distribusi cukup lebar (bukan menumpuk di satu titik), yang berarti target ini punya variansi yang cukup informatif untuk dipelajari model prediksi di CP2.
-
-
 
 ##### 2.6 Menyusun Dataset Akhir
 
@@ -135,8 +121,6 @@ Dataset final (`final`) berisi 119.454 baris x 12 kolom:
 
 Disimpan sebagai `features\_labels.csv` sebagai input untuk tahap modeling (CP2).
 
-
-
 #### 3\. Parameter Kunci \& Justifikasi
 
 |Parameter|Nilai|Alasan|
@@ -147,12 +131,9 @@ Disimpan sebagai `features\_labels.csv` sebagai input untuk tahap modeling (CP2)
 |`SIGMA\_METERS`|1.500|Menghasilkan rata-rata \~40 tetangga/sel — cukup untuk smoothing bermakna tanpa menyebar ke area tak relevan|
 |Metode normalisasi|`log1p` + min-max|Tahan outlier, mempertahankan urutan magnitude, distribusi akhir tidak menumpuk di satu ujung|
 
-
-
 #### 4\. Keterbatasan \& Rencana Lanjutan
 
 * **Dataset proxy, bukan data riil Jabodetabek.** 
 * **Performa `spatial\_smooth`:** implementasi saat ini melakukan pencarian posisi sel per baris (`cells.index\[...]`) di dalam fungsi yang dipanggil berulang lewat `.apply(axis=1)` — berjalan baik untuk 1.001 sel unik saat ini, tapi berpotensi melambat signifikan jika subset data/​jumlah sel diperbesar di iterasi berikutnya. Direkomendasikan untuk di-precompute (`cell\_id → posisi`) sebelum lanjut ke CP2 bila skala data bertambah.
 * **Bagian EDA (pola waktu/lokasi, hotspot) tidak disertakan** dalam notebook CP1 ini secara eksplisit. Sesuai penugasan check point 1, kami lebih fokus pada pseudo labeling, feature engineering, dan untuk kasus ini, koordinat proxy untuk wilayah Jabodetabek.
 * Justifikasi metode normalisasi \& temporal decay saat ini disampaikan secara naratif; menambahkan perbandingan eksplisit dengan alternatif (mis. percentile-rank, clipping, atau linear decay) dapat memperkuat argumen di laporan akhir.
-
