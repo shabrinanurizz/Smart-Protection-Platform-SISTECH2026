@@ -65,9 +65,9 @@ Karena empat path lain di grup finpro mendesain untuk konteks Jabodetabek, koord
 |`lon\_new\_min`|106.55|batas barat (sebagian besar Tangerang)|
 |`lon\_new\_max`|107.05|batas timur (Kota Bekasi \& sebagian Kab. Bekasi)|
 
-Arah relatif dipertahankan (titik paling utara/timur di Chicago tetap paling utara/timur di Jabodetabek), sehingga pola spasial (hotspot, klaster) tetap konsisten posisi relatifnya — hanya "berpindah label" geografis. Koordinat asli disimpan di `Latitude\_Chicago\_orig`/`Longitude\_Chicago\_orig` untuk ketertelusuran/audit, dan hasil transformasi divalidasi dengan assertion (`between(lat\_new\_min, lat\_new\_max)`) serta visual scatter before/after.
+Arah relatif dipertahankan (titik paling utara/timur di Chicago tetap paling utara/timur di Jabodetabek), sehingga pola spasial (hotspot, klaster) tetap konsisten posisi relatifnya, hanya "berpindah label" geografis. Koordinat asli disimpan di `Latitude\_Chicago\_orig`/`Longitude\_Chicago\_orig` dan hasil transformasi divalidasi dengan assertion (`between(lat\_new\_min, lat\_new\_max)`) serta visual scatter before/after.
 
-> Catatan etis (sesuai arahan FAQ Final Project): dataset Chicago Crimes untuk saat ini hanya dipakai untuk membuktikan model secara metodologis, bukan representasi akurat kondisi Jabodetabek. 
+Catatan (sesuai arahan FAQ Final Project): dataset Chicago Crimes untuk saat ini hanya dipakai untuk membuktikan model secara metodologis, bukan representasi akurat kondisi Jabodetabek. 
 
 
 ##### 2.4 Feature Engineering
