@@ -4,6 +4,7 @@ venv/
 .ipynb_checkpoints/
 
 data/dataset/*.csv
+data/dataset/*.parquet
 !data/dataset/features_labels.csv
 
 __pycache__/
