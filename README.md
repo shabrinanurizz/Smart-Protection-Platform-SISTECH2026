@@ -2,19 +2,18 @@
 
 # FINAL PROJECT SISTECH 2026 — Path Machine Learning Operations
 
----
-## Checkpoint 1 Feature Engineering & Pseudo Labeling
-
-#### Fondasi Sistem Prediksi *Risk Score* (Chicago Crimes → Proxy Koordinat Jabodetabek)
-
-
-Group Number : 6
+#### Group Number : 6
 ---
 
 ###### Name : 
 
 * ###### Renata Gabetta Ruth Evifanita Simarmata
 * ###### Shabrina Nur Izzati
+
+---
+## Checkpoint 1 Feature Engineering & Pseudo Labeling
+
+#### Fondasi Sistem Prediksi *Risk Score* (Chicago Crimes → Proxy Koordinat Jabodetabek)
 
 
 
