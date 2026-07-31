@@ -1,4 +1,9 @@
-#### CP1 FINAL PROJECT SISTECH 2026 — Path Machine Learning Operations
+---
+
+# FINAL PROJECT SISTECH 2026 — Path Machine Learning Operations
+
+---
+## Checkpoint 1 Feature Engineering & Pseudo Labeling
 
 #### Fondasi Sistem Prediksi *Risk Score* (Chicago Crimes → Proxy Koordinat Jabodetabek)
 
@@ -137,3 +142,7 @@ Disimpan sebagai `features\_labels.csv` sebagai input untuk tahap modeling (CP2)
 * **Performa `spatial\_smooth`:** implementasi saat ini melakukan pencarian posisi sel per baris (`cells.index\[...]`) di dalam fungsi yang dipanggil berulang lewat `.apply(axis=1)` — berjalan baik untuk 1.001 sel unik saat ini, tapi berpotensi melambat signifikan jika subset data/​jumlah sel diperbesar di iterasi berikutnya. Direkomendasikan untuk di-precompute (`cell\_id → posisi`) bila skala data bertambah.
 * **Bagian EDA (pola waktu/lokasi, hotspot) tidak disertakan** dalam notebook CP1 ini secara eksplisit. Sesuai penugasan check point 1, kami lebih fokus pada pseudo labeling, feature engineering, dan untuk kasus ini, koordinat proxy untuk wilayah Jabodetabek.
 * Justifikasi metode normalisasi \& temporal decay saat ini disampaikan secara naratif; menambahkan perbandingan eksplisit dengan alternatif (mis. percentile-rank, clipping, atau linear decay) dapat memperkuat argumen di laporan akhir.
+
+---
+
+## Checkpoint 2 Model Training and Baseline Comparison + REST API Serving
