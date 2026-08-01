@@ -1,0 +1,25 @@
+venv/
+.venv/
+.vscode/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Environment
+.env
+
+# Model artifacts — model.pkl besar, lebih baik di-generate via train.py
+# dan tidak disimpan di repo. Hapus baris ini jika ingin commit model.pkl.
+# model_registry/v1/model.pkl
+
+data/dataset/*.csv
+data/dataset/*.parquet
+!data/dataset/features_labels.csv
+
+notebooks/models/*.joblib
+
+# Python
+*.egg-info/
+dist/
+build/
+.eggs/
