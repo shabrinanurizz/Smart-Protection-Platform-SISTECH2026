@@ -66,7 +66,9 @@ def test_safe_commute():
     print(f"Status: {resp.status_code}")
     if resp.status_code != 200:
         print(f"Error response: {resp.text}")
-        return
+        raise AssertionError(
+            f"/safe-commute/ expected 200, got {resp.status_code}"
+        )
     data = resp.json()
     print(f"\nResponse:")
     print(json.dumps(data, indent=2))
