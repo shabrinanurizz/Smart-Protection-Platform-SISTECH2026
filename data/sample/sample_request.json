@@ -1,0 +1,20 @@
+{
+  "predict_risk": {
+    "lat": -6.2,
+    "lon": 106.8,
+    "hour": 22,
+    "day": "Saturday"
+  },
+  "safe_commute": {
+    "start": {
+      "lat": -6.2,
+      "lon": 106.8
+    },
+    "destination": {
+      "lat": -6.21,
+      "lon": 106.82
+    },
+    "hour": 22,
+    "day": "Saturday"
+  }
+}

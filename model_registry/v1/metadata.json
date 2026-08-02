@@ -1,0 +1,41 @@
+{
+  "model_name": "crime-risk-model",
+  "version": "v1",
+  "model_type": "RandomForestRegressor",
+  "sklearn_version": "1.9.0",
+  "features": [
+    "lat_r",
+    "lon_r",
+    "hour_sin",
+    "hour_cos",
+    "dow_sin",
+    "dow_cos",
+    "crime_count",
+    "cell_freq_enc",
+    "cell_target_enc"
+  ],
+  "target": "risk_score",
+  "target_range": [0.0, 100.0],
+  "prediction_range": [14.21, 95.03],
+  "training": {
+    "n_estimators": 300,
+    "max_depth": null,
+    "min_samples_leaf": 3,
+    "random_state": 42,
+    "n_jobs": -1,
+    "train_split": 0.8,
+    "split_random_state": 42
+  },
+  "preprocessing": {
+    "lat_rounding_decimals": 2,
+    "lon_rounding_decimals": 2,
+    "cell_id_format": "{lat_r}_{lon_r}",
+    "hour_period": 24,
+    "dow_period": 7,
+    "dow_convention": "Monday=0, Sunday=6 (Python datetime.dayofweek)",
+    "risk_score_normalization": "log1p + min-max scaling to 0-100"
+  },
+  "encoding_maps_source": "features_labels.csv (train split 80%, random_state=42)",
+  "created_at": "2026-08-02",
+  "description": "RandomForestRegressor untuk prediksi risk_score kejahatan berdasarkan lokasi dan waktu di area Jabodetabek (proxy dari Chicago crime data via coordinate transform)."
+}

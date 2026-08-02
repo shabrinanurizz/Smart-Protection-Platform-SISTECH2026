@@ -1,0 +1,78 @@
+# =====================================================================
+# Smart Protection Platform — API Serving Configuration
+# =====================================================================
+# Semua nilai non-secret dikelola di file ini.
+# Secret / environment-specific values (API keys, dll) WAJIB via .env
+# =====================================================================
+
+model:
+  version: "v1"
+  registry_path: "model_registry/v1"
+  model_file: "model.pkl"
+  metadata_file: "metadata.json"
+
+# Risk thresholds — konversi risk_score (0-100) ke risk_level
+# Nilai ini mudah diubah tanpa menyentuh kode.
+risk_thresholds:
+  low_max: 33.0      # 0.0 – 33.0   → Low
+  medium_max: 66.0   # 33.1 – 66.0  → Medium
+  # di atas 66.0     → High
+  min_score: 0.0
+  max_score: 100.0
+
+# Dataset untuk lookup crime_count & encoding maps (cell_freq_enc, cell_target_enc)
+dataset:
+  path: "data/dataset/features_labels.csv"
+
+# Routing configuration
+routing:
+  provider: "osrm"                     # osrm | openrouteservice | graphhopper
+  osrm:
+    base_url: "https://router.project-osrm.org"
+    profile: "car"                     # driving (car), walking, cycling
+    timeout_seconds: 10
+  openrouteservices:
+    base_url: "https://api.openrouteservice.org"
+    profile: "driving-car"
+    timeout_seconds: 10
+  graphhopper:
+    base_url: "https://graphhopper.com/api/1"
+    profile: "car"
+    timeout_seconds: 10
+
+# Route scoring weights (untuk Safe Commute)
+route_scoring:
+  # Berapa banyak titik sampel yang diambil dari setiap segmen route
+  sample_points_per_segment: 5
+  # Metode aggregasi risk score pada route
+  #   - "weighted_average" : rata-rata tertimbang oleh panjang segmen
+  #   - "max"              : ambil risk tertinggi pada route
+  #   - "mean"             : rata-rata sederhana
+  aggregation_method: "weighted_average"
+
+# Logging
+logging:
+  requests_log: "logs/requests.jsonl"
+  predictions_log: "logs/predictions.jsonl"
+  errors_log: "logs/errors.jsonl"
+  # Jangan pernah log API key atau secret
+  redact_fields:
+    - "routing_api_key"
+    - "api_key"
+    - "secret"
+    - "password"
+    - "token"
+
+# Day-of-week name mapping (untuk parsing input "day" string)
+# Monday=0 … Sunday=6 (Python datetime.dayofweek convention)
+day_mapping:
+  monday: 0
+  tuesday: 1
+  wednesday: 2
+  thursday: 3
+  friday: 4
+  saturday: 5
+  sunday: 6
+
+# Rounding decimals for coordinate grid (mesti sama dengan training: 2)
+location_rounding: 2
