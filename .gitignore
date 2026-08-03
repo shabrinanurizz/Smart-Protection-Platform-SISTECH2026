@@ -11,3 +11,17 @@ notebooks/models/*.joblib
 
 __pycache__/
 *.py[cod]
+
+# Environment variables (secrets)
+.env
+
+# Log files (runtime-generated)
+logs/*.jsonl
+logs/errors.jsonl
+
+# Model artifacts
+model_registry/*/model.pkl
+
+# Server logs
+server.log
+server_err.log
