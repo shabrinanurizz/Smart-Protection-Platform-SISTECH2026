@@ -28,10 +28,16 @@ from typing import List, Optional, Tuple
 from pydantic import BaseModel, Field, field_validator
 
 
-MIN_LAT = -90.0
-MAX_LAT = 90.0
-MIN_LON = -180.0
-MAX_LON = 180.0
+MIN_LAT = -6.55
+MAX_LAT = -6.10
+MIN_LON = 106.55
+MAX_LON = 107.55
+
+"""lat_new_min = -6.55   
+lat_new_max = -6.10   
+lon_new_min = 106.55  
+lon_new_max = 107.05 
+"""
 
 
 class Location(BaseModel):
