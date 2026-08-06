@@ -1,0 +1,146 @@
+[
+  {
+    "performance": {
+      "mae": 2.75776594541133,
+      "rmse": 3.812588514600937,
+      "baseline_mae": 2.7169557958305735,
+      "threshold_ratio": 1.3,
+      "performance_drift": false
+    },
+    "distribution": {
+      "per_feature": {
+        "crime_count": {
+          "ks_stat": 0.017994245979914836,
+          "p_value": 0.051833810594969276,
+          "drift": false
+        },
+        "lat_r": {
+          "ks_stat": 0.01171775541482073,
+          "p_value": 0.419761748180547,
+          "drift": false
+        },
+        "lon_r": {
+          "ks_stat": 0.015421271797861291,
+          "p_value": 0.13649238619333304,
+          "drift": false
+        }
+      },
+      "distribution_drift": false
+    },
+    "drift_detected": false,
+    "n_rows": 5973,
+    "batch": 1,
+    "active_version_before": "v2",
+    "candidate_version": null,
+    "promoted": false,
+    "active_version_after": "v2"
+  },
+  {
+    "performance": {
+      "mae": 2.694111495717766,
+      "rmse": 3.6719626534469607,
+      "baseline_mae": 2.7169557958305735,
+      "threshold_ratio": 1.3,
+      "performance_drift": false
+    },
+    "distribution": {
+      "per_feature": {
+        "crime_count": {
+          "ks_stat": 0.011130023646079179,
+          "p_value": 0.4856774502437554,
+          "drift": false
+        },
+        "lat_r": {
+          "ks_stat": 0.007688619345920078,
+          "p_value": 0.8911727758560447,
+          "drift": false
+        },
+        "lon_r": {
+          "ks_stat": 0.009251058797442924,
+          "p_value": 0.7181286663114009,
+          "drift": false
+        }
+      },
+      "distribution_drift": false
+    },
+    "drift_detected": false,
+    "n_rows": 5973,
+    "batch": 2,
+    "active_version_before": "v2",
+    "candidate_version": null,
+    "promoted": false,
+    "active_version_after": "v2"
+  },
+  {
+    "performance": {
+      "mae": 2.7297963561060348,
+      "rmse": 3.7786120871689617,
+      "baseline_mae": 2.7169557958305735,
+      "threshold_ratio": 1.3,
+      "performance_drift": false
+    },
+    "distribution": {
+      "per_feature": {
+        "crime_count": {
+          "ks_stat": 0.007118762558508074,
+          "p_value": 0.9362063304697852,
+          "drift": false
+        },
+        "lat_r": {
+          "ks_stat": 0.010667591940031196,
+          "p_value": 0.5407818054910634,
+          "drift": false
+        },
+        "lon_r": {
+          "ks_stat": 0.014696852396237026,
+          "p_value": 0.17446836228465,
+          "drift": false
+        }
+      },
+      "distribution_drift": false
+    },
+    "drift_detected": false,
+    "n_rows": 5973,
+    "batch": 3,
+    "active_version_before": "v2",
+    "candidate_version": null,
+    "promoted": false,
+    "active_version_after": "v2"
+  },
+  {
+    "performance": {
+      "mae": 2.6861442276126577,
+      "rmse": 3.667926505686255,
+      "baseline_mae": 2.7169557958305735,
+      "threshold_ratio": 1.3,
+      "performance_drift": false
+    },
+    "distribution": {
+      "per_feature": {
+        "crime_count": {
+          "ks_stat": 0.0073621999967072305,
+          "p_value": 0.9185665446932625,
+          "drift": false
+        },
+        "lat_r": {
+          "ks_stat": 0.014894889950983203,
+          "p_value": 0.1634124082699241,
+          "drift": false
+        },
+        "lon_r": {
+          "ks_stat": 0.01618516350091892,
+          "p_value": 0.10405994399750051,
+          "drift": false
+        }
+      },
+      "distribution_drift": false
+    },
+    "drift_detected": false,
+    "n_rows": 5972,
+    "batch": 4,
+    "active_version_before": "v2",
+    "candidate_version": null,
+    "promoted": false,
+    "active_version_after": "v2"
+  }
+]
