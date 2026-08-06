@@ -25,3 +25,7 @@ model_registry/*/model.pkl
 # Server logs
 server.log
 server_err.log
+
+# API
+api.err
+api.log
