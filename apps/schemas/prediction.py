@@ -18,7 +18,7 @@ from pydantic import BaseModel, Field, field_validator
 # Validasi geografi
 # -----------------------------------------------------------------------
 MIN_LAT = -6.55
-MAX_LAT = 6.10
+MAX_LAT = -6.10
 MIN_LON = -106.55
 MAX_LON = 107.05
 
