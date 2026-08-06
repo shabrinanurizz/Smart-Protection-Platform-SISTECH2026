@@ -21,5 +21,28 @@
     },
     "trigger": "initial_training",
     "parent_version": null
+  },
+  {
+    "version": "v3",
+    "trained_at": "2026-08-06T08:47:34.584493+00:00",
+    "n_train_rows": 95563,
+    "feature_cols": [
+      "lat_r",
+      "lon_r",
+      "hour_sin",
+      "hour_cos",
+      "dow_sin",
+      "dow_cos",
+      "crime_count",
+      "cell_freq_enc",
+      "cell_target_enc"
+    ],
+    "metrics": {
+      "mae_test": 2.7169557958305735,
+      "rmse_test": 3.733323455746537,
+      "n_test_rows": 23891
+    },
+    "trigger": "initial_training",
+    "parent_version": null
   }
 ]
