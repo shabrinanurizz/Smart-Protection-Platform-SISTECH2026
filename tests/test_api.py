@@ -5,6 +5,10 @@ Tests:
   1. GET  /health        — health check
   2. POST /predict-risk  — risk prediction
   3. POST /safe-commute  — safe commute planning
+  4. GET  /registry      — list registered models
+  5. GET  /metrics       — application metrics
+  6. GET  /monitoring/drift             — drift monitoring history
+  7. GET  /monitoring/model-performance — active model performance
 
 Cara jalankan:
   python -m pytest tests/test_api.py -v
@@ -264,6 +268,66 @@ def test_metrics() -> None:
 
 
 # =====================================================================
+# TEST 6: GET /monitoring/drift
+# =====================================================================
+def test_monitoring_drift() -> None:
+    """GET /monitoring/drift — drift monitoring history."""
+    print_separator("TEST: GET /monitoring/drift")
+
+    response = client.get("/monitoring/drift")
+    assert response.status_code == 200, f"Expected 200, got {response.status_code}"
+
+    data = response.json()
+    print(f"  Message: {data.get('message')}")
+    print(f"  Drift entries: {len(data.get('data', []))}")
+
+    assert "data" in data, "Response harus mengandung 'data'"
+    assert isinstance(data["data"], list), "'data' harus berupa list"
+    for entry in data["data"]:
+        assert "batch" in entry
+        assert "active_version_before" in entry
+        assert "active_version_after" in entry
+        assert "performance" in entry and "mae" in entry["performance"]
+        assert "performance_drift" in entry["performance"]
+        assert "distribution" in entry and "distribution_drift" in entry["distribution"]
+        assert "ks_results" in entry["distribution"]
+        assert "drift_detected" in entry
+        assert "candidate_version" in entry
+        assert "promoted" in entry
+
+    print("  ✅ PASS: /monitoring/drift berhasil")
+    return data
+
+
+# =====================================================================
+# TEST 7: GET /monitoring/model-performance
+# =====================================================================
+def test_monitoring_model_performance() -> None:
+    """GET /monitoring/model-performance — active model performance metadata."""
+    print_separator("TEST: GET /monitoring/model-performance")
+
+    response = client.get("/monitoring/model-performance")
+    assert response.status_code == 200, f"Expected 200, got {response.status_code}"
+
+    data = response.json()
+    print(f"  Active version: {data.get('active_version')}")
+    print(f"  Trained at: {data.get('trained_at')}")
+    print(f"  n_train_rows: {data.get('n_train_rows')}")
+    print(f"  Trigger: {data.get('trigger')}")
+
+    assert "active_version" in data
+    assert "trained_at" in data
+    assert "metrics" in data
+    assert "n_train_rows" in data
+    assert "trigger" in data
+    assert "parent_version" in data
+    assert "feature_cols" in data
+
+    print("  ✅ PASS: /monitoring/model-performance berhasil")
+    return data
+
+
+# =====================================================================
 # Main runner
 # =====================================================================
 if __name__ == "__main__":
@@ -279,6 +343,8 @@ if __name__ == "__main__":
         ("POST /safe-commute (invalid)", test_safe_commute_invalid),
         ("GET /registry", test_registry),
         ("GET /metrics", test_metrics),
+        ("GET /monitoring/drift", test_monitoring_drift),
+        ("GET /monitoring/model-performance", test_monitoring_model_performance),
     ]
 
     passed = 0
