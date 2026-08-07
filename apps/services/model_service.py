@@ -28,7 +28,7 @@ from __future__ import annotations
 
 import json
 import os
-import bz2file as bz2
+import bz2
 from pathlib import Path
 from typing import Any, Dict, Optional, Tuple
 
