@@ -112,6 +112,48 @@ def test_metrics():
     print("PASS: /metrics\n")
 
 
+def test_drift():
+    print("=" * 60)
+    print("TEST 7: GET /monitoring/drift")
+    print("=" * 60)
+    resp = requests.get(f"{BASE}/monitoring/drift", timeout=15)
+    print(f"Status: {resp.status_code}")
+    data = resp.json()
+    print(json.dumps(data, indent=2))
+    assert resp.status_code == 200
+    assert "data" in data
+    assert isinstance(data["data"], list)
+    for entry in data["data"]:
+        assert "batch" in entry
+        assert "active_version_before" in entry
+        assert "active_version_after" in entry
+        assert "performance" in entry and "mae" in entry["performance"]
+        assert "distribution" in entry
+        assert "drift_detected" in entry
+        assert "candidate_version" in entry
+        assert "promoted" in entry
+    print(f"PASS: /monitoring/drift — {len(data['data'])} entries\n")
+
+
+def test_model_performance():
+    print("=" * 60)
+    print("TEST 8: GET /monitoring/model-performance")
+    print("=" * 60)
+    resp = requests.get(f"{BASE}/monitoring/model-performance", timeout=15)
+    print(f"Status: {resp.status_code}")
+    data = resp.json()
+    print(json.dumps(data, indent=2))
+    assert resp.status_code == 200
+    assert data["active_version"]
+    assert "trained_at" in data
+    assert "metrics" in data
+    assert "n_train_rows" in data
+    assert "trigger" in data
+    assert "parent_version" in data
+    assert "feature_cols" in data
+    print(f"PASS: /monitoring/model-performance — active_version={data['active_version']}\n")
+
+
 if __name__ == "__main__":
     tests = [
         ("GET /health", test_health),
@@ -120,6 +162,8 @@ if __name__ == "__main__":
         ("POST /safe-commute (valid)", test_safe_commute),
         ("GET /registry", test_registry),
         ("GET /metrics", test_metrics),
+        ("GET /monitoring/drift", test_drift),
+        ("GET /monitoring/model-performance", test_model_performance),
     ]
 
     passed = 0

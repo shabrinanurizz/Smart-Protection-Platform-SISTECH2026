@@ -28,6 +28,7 @@ from __future__ import annotations
 
 import json
 import os
+import bz2file as bz2
 from pathlib import Path
 from typing import Any, Dict, Optional, Tuple
 
@@ -88,7 +89,8 @@ class ModelService:
         # --- Load model ---
         if not model_path.exists():
             raise FileNotFoundError(f"Model file tidak ditemukan: {model_path}")
-        self._model = joblib.load(model_path)
+        with bz2.BZ2File(str(model_path), "rb") as f:
+            self._model = joblib.load(f)
 
         # --- Load metadata ---
         if metadata_path.exists():

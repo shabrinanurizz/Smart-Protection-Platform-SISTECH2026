@@ -20,7 +20,8 @@ logs/*.jsonl
 logs/errors.jsonl
 
 # Model artifacts
-model_registry/*/model.pkl
+model_registry/**/model.pkl.bz2
+model_registry/**/model.pkl
 
 # Server logs
 server.log

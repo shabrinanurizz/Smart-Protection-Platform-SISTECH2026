@@ -165,7 +165,7 @@ The API provides the following endpoint groups:
 * **Prediction** — predict crime risk for a location and time
 * **Safe Commute** — calculate route and aggregate risk along the route
 * **Registry** — inspect model registry information
-* **Monitoring** — retrieve API and prediction metrics
+* **Monitoring** — retrieve API/prediction metrics, drift monitoring history, and active model performance
 
 ### Health Check
 
@@ -232,6 +232,10 @@ GET /registry/
 
 ### Monitoring
 
+The Monitoring group provides observability into both the application and the model serving pipeline.
+
+#### Application Metrics
+
 ```http
 GET /metrics
 ```
@@ -243,6 +247,76 @@ Returns information such as:
 * total requests
 * total predictions
 * application status
+
+#### Drift Monitoring History
+
+```http
+GET /monitoring/drift
+```
+
+Reads the drift monitoring history from `model_registry/drift_log.json`. If the file does not exist yet, returns an empty list with an appropriate message. Each entry includes the before/after active versions, batch number, performance metrics, distribution drift results, and the promotion status.
+
+Example response:
+
+```json
+{
+  "data": [
+    {
+      "batch": 1,
+      "active_version_before": "v2",
+      "active_version_after": "v2",
+      "performance": {
+        "mae": 2.75776594541133,
+        "performance_drift": false
+      },
+      "distribution": {
+        "distribution_drift": false,
+        "ks_results": null
+      },
+      "drift_detected": false,
+      "candidate_version": null,
+      "promoted": false
+    }
+  ],
+  "message": "Berhasil memuat 4 entri monitoring drift."
+}
+```
+
+#### Active Model Performance
+
+```http
+GET /monitoring/model-performance
+```
+
+Reads `model_registry/active_version.json` to resolve the active version, then reads **only** the `metadata.json` of that version (the model artifact `model.pkl` and `encoding_maps.pkl` are never loaded). Returns training metadata and metrics for the active model.
+
+Example response:
+
+```json
+{
+  "active_version": "v2",
+  "trained_at": "2026-08-05T09:03:10.997007+00:00",
+  "metrics": {
+    "mae_test": 2.7169557958305735,
+    "rmse_test": 3.7333234557464373,
+    "n_test_rows": 23891
+  },
+  "n_train_rows": 95563,
+  "trigger": "initial_training",
+  "parent_version": null,
+  "feature_cols": [
+    "lat_r",
+    "lon_r",
+    "hour_sin",
+    "hour_cos",
+    "dow_sin",
+    "dow_cos",
+    "crime_count",
+    "cell_freq_enc",
+    "cell_target_enc"
+  ]
+}
+```
 
 ## Testing
 
@@ -257,7 +331,7 @@ pytest tests/test_api.py -v
 Current result:
 
 ```text
-11 passed
+13 passed
 ```
 
 ### Manual HTTP Endpoint Tests
@@ -279,6 +353,8 @@ POST /predict-risk/ (invalid input)
 POST /safe-commute/
 GET  /registry/
 GET  /metrics
+GET  /monitoring/drift
+GET  /monitoring/model-performance
 ```
 
 ## Docker
@@ -332,6 +408,6 @@ Log files are excluded through `.gitignore`.
 * Model registry: v1
 * Risk prediction: Ready
 * Safe Commute: Ready
-* Automated API tests: 11/11 passed
+* Automated API tests: 13/13 passed
 * Manual HTTP endpoint testing: Implemented
 * Docker configuration: Included
