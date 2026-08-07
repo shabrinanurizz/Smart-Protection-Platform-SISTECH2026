@@ -1,17 +1,17 @@
 [
   {
     "performance": {
-      "mae": 2.75776594541133,
-      "rmse": 3.8125885146009373,
-      "baseline_mae": 2.7169557958305735,
+      "mae": 2.7578727744136997,
+      "rmse": 3.812788958493309,
+      "baseline_mae": 2.7169991613953552,
       "threshold_ratio": 1.3,
       "performance_drift": false
     },
     "distribution": {
       "per_feature": {
         "crime_count": {
-          "ks_stat": 0.017994245979914836,
-          "p_value": 0.051833810594969276,
+          "ks_stat": 0.017994245979914947,
+          "p_value": 0.051833810594966945,
           "drift": false
         },
         "lat_r": {
@@ -30,24 +30,24 @@
     "drift_detected": false,
     "n_rows": 5973,
     "batch": 1,
-    "active_version_before": "v3",
+    "active_version_before": "v4",
     "candidate_version": null,
     "promoted": false,
-    "active_version_after": "v3"
+    "active_version_after": "v4"
   },
   {
     "performance": {
-      "mae": 2.694111495717766,
-      "rmse": 3.6719626534469607,
-      "baseline_mae": 2.7169557958305735,
+      "mae": 2.6935282697137746,
+      "rmse": 3.671043989521084,
+      "baseline_mae": 2.7169991613953552,
       "threshold_ratio": 1.3,
       "performance_drift": false
     },
     "distribution": {
       "per_feature": {
         "crime_count": {
-          "ks_stat": 0.011130023646079179,
-          "p_value": 0.4856774502437554,
+          "ks_stat": 0.011130023646079401,
+          "p_value": 0.48567745024372955,
           "drift": false
         },
         "lat_r": {
@@ -66,29 +66,29 @@
     "drift_detected": false,
     "n_rows": 5973,
     "batch": 2,
-    "active_version_before": "v3",
+    "active_version_before": "v4",
     "candidate_version": null,
     "promoted": false,
-    "active_version_after": "v3"
+    "active_version_after": "v4"
   },
   {
     "performance": {
-      "mae": 2.7297963561060348,
-      "rmse": 3.778612087168961,
-      "baseline_mae": 2.7169557958305735,
+      "mae": 2.7299713169135824,
+      "rmse": 3.7790912805758823,
+      "baseline_mae": 2.7169991613953552,
       "threshold_ratio": 1.3,
       "performance_drift": false
     },
     "distribution": {
       "per_feature": {
         "crime_count": {
-          "ks_stat": 0.007118762558508074,
-          "p_value": 0.9362063304697852,
+          "ks_stat": 0.007118762558507963,
+          "p_value": 0.9362063304697927,
           "drift": false
         },
         "lat_r": {
-          "ks_stat": 0.010667591940031196,
-          "p_value": 0.5407818054910634,
+          "ks_stat": 0.010667591940031418,
+          "p_value": 0.5407818054910365,
           "drift": false
         },
         "lon_r": {
@@ -102,16 +102,16 @@
     "drift_detected": false,
     "n_rows": 5973,
     "batch": 3,
-    "active_version_before": "v3",
+    "active_version_before": "v4",
     "candidate_version": null,
     "promoted": false,
-    "active_version_after": "v3"
+    "active_version_after": "v4"
   },
   {
     "performance": {
-      "mae": 2.6861442276126577,
-      "rmse": 3.667926505686255,
-      "baseline_mae": 2.7169557958305735,
+      "mae": 2.6866191983252157,
+      "rmse": 3.6682663482571174,
+      "baseline_mae": 2.7169991613953552,
       "threshold_ratio": 1.3,
       "performance_drift": false
     },
@@ -128,8 +128,8 @@
           "drift": false
         },
         "lon_r": {
-          "ks_stat": 0.01618516350091892,
-          "p_value": 0.10405994399750051,
+          "ks_stat": 0.01618516350091881,
+          "p_value": 0.10405994399750484,
           "drift": false
         }
       },
@@ -138,9 +138,9 @@
     "drift_detected": false,
     "n_rows": 5972,
     "batch": 4,
-    "active_version_before": "v3",
+    "active_version_before": "v4",
     "candidate_version": null,
     "promoted": false,
-    "active_version_after": "v3"
+    "active_version_after": "v4"
   }
 ]
