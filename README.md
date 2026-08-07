@@ -331,7 +331,7 @@ pytest tests/test_api.py -v
 Current result:
 
 ```text
-11 passed
+13 passed
 ```
 
 ### Manual HTTP Endpoint Tests
