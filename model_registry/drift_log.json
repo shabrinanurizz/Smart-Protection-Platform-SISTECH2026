@@ -3,7 +3,7 @@
     "performance": {
       "mae": 2.7578727744136997,
       "rmse": 3.812788958493309,
-      "baseline_mae": 2.7169991613953552,
+      "baseline_mae": 2.716999161395355,
       "threshold_ratio": 1.3,
       "performance_drift": false
     },
@@ -30,16 +30,16 @@
     "drift_detected": false,
     "n_rows": 5973,
     "batch": 1,
-    "active_version_before": "v4",
+    "active_version_before": "v1",
     "candidate_version": null,
     "promoted": false,
-    "active_version_after": "v4"
+    "active_version_after": "v1"
   },
   {
     "performance": {
       "mae": 2.6935282697137746,
       "rmse": 3.671043989521084,
-      "baseline_mae": 2.7169991613953552,
+      "baseline_mae": 2.716999161395355,
       "threshold_ratio": 1.3,
       "performance_drift": false
     },
@@ -66,16 +66,16 @@
     "drift_detected": false,
     "n_rows": 5973,
     "batch": 2,
-    "active_version_before": "v4",
+    "active_version_before": "v1",
     "candidate_version": null,
     "promoted": false,
-    "active_version_after": "v4"
+    "active_version_after": "v1"
   },
   {
     "performance": {
-      "mae": 2.7299713169135824,
+      "mae": 2.729971316913583,
       "rmse": 3.7790912805758823,
-      "baseline_mae": 2.7169991613953552,
+      "baseline_mae": 2.716999161395355,
       "threshold_ratio": 1.3,
       "performance_drift": false
     },
@@ -102,16 +102,16 @@
     "drift_detected": false,
     "n_rows": 5973,
     "batch": 3,
-    "active_version_before": "v4",
+    "active_version_before": "v1",
     "candidate_version": null,
     "promoted": false,
-    "active_version_after": "v4"
+    "active_version_after": "v1"
   },
   {
     "performance": {
       "mae": 2.6866191983252157,
       "rmse": 3.6682663482571174,
-      "baseline_mae": 2.7169991613953552,
+      "baseline_mae": 2.716999161395355,
       "threshold_ratio": 1.3,
       "performance_drift": false
     },
@@ -138,9 +138,9 @@
     "drift_detected": false,
     "n_rows": 5972,
     "batch": 4,
-    "active_version_before": "v4",
+    "active_version_before": "v1",
     "candidate_version": null,
     "promoted": false,
-    "active_version_after": "v4"
+    "active_version_after": "v1"
   }
 ]
