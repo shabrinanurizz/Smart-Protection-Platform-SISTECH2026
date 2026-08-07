@@ -8,7 +8,7 @@
 model:
   version: "v1"
   registry_path: "model_registry/v1"
-  model_file: "model.pkl"
+  model_file: "model.pkl.bz2"
   metadata_file: "metadata.json"
 
 # Risk thresholds — konversi risk_score (0-100) ke risk_level
